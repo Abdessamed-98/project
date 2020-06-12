@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template
 #import time
-'''
+
 import pandas as pd
 import numpy as np
 import re
@@ -13,7 +13,7 @@ from scipy.sparse import hstack
 from keras import models
 from keras.preprocessing.sequence import pad_sequences
 import keras.backend as K
-'''
+
 ### WEB APP
 app = Flask(__name__)
 questions = []
@@ -30,6 +30,8 @@ def prediction():
     else:
         return render_template("interface.html" , data = {'questions':questions, 'first':first})
 
+"""
+#fake pred function
 def pred(question, model):
     #time.sleep(10)
     if question == 'hello':
@@ -171,7 +173,6 @@ def pred(text, choice):
     return questions
 
 ###################################################
-"""
 
 if __name__ == '__main__':
     app.run(debug = True)
