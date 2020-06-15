@@ -1,60 +1,60 @@
-<!DOCTYPE.html>
-	<html>
-	<head>
-		<title>Questions</title>
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-	</head>
+{% extends "base_site.html" %}
 
-	<body>
-        <form method="POST" action="/" id="myform">
-            <div  class="container">
-                <div class="row1">
-                    <div class="c1">
-                        <h2>Ask Your Question</h2>
-                    </div>
-                    <div class="c11">
-                        <input type="radio" id="siamese" name="model" value="siamese" checked>
-                        <label for="siamese">siamese</label>
-                        <input type="radio" id="knn" name="model" value="knn">
-                        <label for="knn">knn</label>
-                    </div>
-                </div>
-                <div class="row2">
-                    <textarea name="question" class="c2" id="text" cols="30" rows="1"></textarea>
-                </div>
-                <div class="row3">
-                    {% if data.first == False%}
-                            {% if data.questions|length < 1 %}
-                            <div class="c3" id="d" style="background-color: #12A544;">
-                                <p id ="dt">your question is not dublicated</p>
-                            </div>
-                            {% else %}
-                            <div class="c3" id="d" style="background-color: #E72E2E;">
-                                <p id ="dt">your question is dublicated</p>
-                            </div>
-                            {% endif %}
-                        {% else %}
-                        <div class="c3" id="d"></div>
-                    {% endif %}
-                    <input type="button" class="c4" id="btn" value="submit" onclick="myFunction()">
-                </div>
-                <div class="row4">
-                    {% if data.first == False and data.questions|length >= 1 %}
-                    <div class="c5">
-                        <p id ="most">most 3 similar questions </p>
-                        {% for question in data.questions %}
-                        <p id = "res"> {{ question }} </p>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                </div>
+{% block stylesheets %}
+{{ super() }}
+<link href="{{ url_for('pravda_bouazza.static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+<form method="POST" action="/" id="myform">
+    <div  class="container">
+        <div class="row1">
+            <div class="c1">
+                <h2>Ask Your Question</h2>
             </div>
-        </form>
-    </body>
+            <div class="c11">
+                <input type="radio" id="siamese" name="model" value="siamese" checked>
+                <label for="siamese">siamese</label>
+                <input type="radio" id="knn" name="model" value="knn">
+                <label for="knn">knn</label>
+            </div>
+        </div>
+        <div class="row2">
+            <textarea name="question" class="c2" id="text" cols="30" rows="1"></textarea>
+        </div>
+        <div class="row3">
+            {% if data.first == False%}
+                    {% if data.questions|length < 1 %}
+                    <div class="c3" id="d" style="background-color: #12A544;">
+                        <p id ="dt">your question is not dublicated</p>
+                    </div>
+                    {% else %}
+                    <div class="c3" id="d" style="background-color: #E72E2E;">
+                        <p id ="dt">your question is dublicated</p>
+                    </div>
+                    {% endif %}
+                {% else %}
+                <div class="c3" id="d"></div>
+            {% endif %}
+            <input type="button" class="c4" id="btn" value="submit" onclick="myFunction()">
+        </div>
+        <div class="row4">
+            {% if data.first == False and data.questions|length >= 1 %}
+            <div class="c5">
+                <p id ="most">most 3 similar questions </p>
+                {% for question in data.questions %}
+                <p id = "res"> {{ question }} </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</form>
+{% endblock content %}
 
-    <script>
-        function myFunction(){
-            document.querySelector('#myform').submit();
-        }
-	</script>
-	</html>
+{% block javascripts %}
+{{ super() }}
+
+<script type="text/javascript" src="{{ url_for('pravda_bouazza.static', filename='js/main.js') }}"></script>
+{% endblock javascripts %}
